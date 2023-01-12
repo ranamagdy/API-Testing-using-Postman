@@ -1,0 +1,311 @@
+{
+	"info": {
+		"_postman_id": "aede8e3f-d95e-4a25-a7e5-032534133425",
+		"name": "Testing courses",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25141328"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsondata=pm.response.json()\r",
+							"var token =jsondata.accessToken\r",
+							"pm.environment.set(\"Token \", token);\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"ranamagdyy22@gmail.com\",\r\n  \"password\": \"bestPassw0rd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/courses/signin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"courses",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post a course",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jdata = pm.response.json()\r",
+							"var couid = jdata.id\r",
+							"pm.environment.set(\"courseid\", couid);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token }}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 9,\r\n      \"title\": \" testing \",\r\n      \"description\": \"full course ..\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/660/courses/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"660",
+						"courses",
+						""
+					]
+				},
+				"description": "post course in test courses by id "
+			},
+			"response": []
+		},
+		{
+			"name": "get this course ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"check that the API response is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token }}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/660/courses/{{courseid}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"660",
+						"courses",
+						"{{courseid}}"
+					]
+				},
+				"description": "get the course by id \r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "change course",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token }}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"AUTOMATION\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/660/courses/{{courseid}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"660",
+						"courses",
+						"{{courseid}}"
+					]
+				},
+				"description": "change this course by id\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "delete this course ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token }}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/660/courses/{{courseid}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"660",
+						"courses",
+						"{{courseid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all courses after delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"check that the API is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token }}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/660/courses/{{cousese}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"660",
+						"courses",
+						"{{cousese}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
